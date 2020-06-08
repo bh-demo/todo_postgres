@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body1 %}
+<h1>Update Task</h1>
+<form class="w3-container" action="/update/{{task.id}}" method="POST">
+	<input class="w3-input w3-border" type="text" value="{{task.content}}" name="content" id="content">
+	<button class="w3-btn w3-teal" > <b> update Task </b></button>
+</form>
+ 
+{%endblock%}
+

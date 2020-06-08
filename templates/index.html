@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block body1 %}
+<h1>Task Master</h1>
+{% if tasks|length < 1 %}
+	<p> There are no tasks to display, use entry below to create tasks </p>
+{% else %}
+	 <table class="w3-table-all w3-hoverable"> 
+		<thead>
+		  <tr class="w3-light-grey">
+			<th>Task</th>
+			<th>Added</th>
+			<th>Actions</th>
+		  </tr>
+		</thead>
+		{% for t in tasks %}
+		<tr>
+			<td> {{t.content }}</td>
+			<td> {{t.date_created.date()}}</td>
+			<td>
+				<a href="/delete/{{t.id}}">Delete</a>
+				<br>
+				<a href="/update/{{t.id}}">Update</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{%endblock%}
+{% block body2 %}
+<form class="w3-container" action="/" method="POST">
+	<input class="w3-input w3-border" type="text" name="content" id="content">
+	<button class="w3-btn w3-teal" > <b> submit Task </b></button>
+</form>
+{% endblock %}
