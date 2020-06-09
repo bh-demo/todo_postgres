@@ -1,2 +1,0 @@
-# add python version
-Python-3.6.10
