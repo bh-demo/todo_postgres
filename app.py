@@ -1,11 +1,25 @@
 from flask import Flask , render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 # create flask app
 app = Flask(__name__)
+
 # initialise database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+# note, dictionary not used
+
+ENV = 'deploy'
+
+if (ENV == 'dev'):
+    app.debug=True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bha..28.@localhost/test2'
+    
+else:
+    app.debug=False
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ejzxtnllchgmoo:2cf2df34045639b13019e08c2504d35e5c4444f83730957423e7b46a31a2a661@ec2-50-17-90-177.compute-1.amazonaws.com:5432/d8iqd4mvct484b'
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 #define db model
@@ -15,8 +29,8 @@ class todo(db.Model):
     completed = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self):
-        return '<Task %r>' %self.id
+with app.app_context():
+    db.create_all()
     
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -62,4 +76,4 @@ def update(id):
         return render_template('update.html', task=task)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
