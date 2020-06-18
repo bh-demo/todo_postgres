@@ -17,7 +17,7 @@ if (ENV == 'dev'):
     
 else:
     app.debug=False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ejzxtnllchgmoo:2cf2df34045639b13019e08c2504d35e5c4444f83730957423e7b46a31a2a661@ec2-50-17-90-177.compute-1.amazonaws.com:5432/d8iqd4mvct484b'
+    app.config['SQLALCHEMY_DATABASE_URI'] = $(heroku config:get DATABASE_URL -a bhver2)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
