@@ -16,8 +16,10 @@ if (ENV == 'dev'):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bha..28.@localhost/test2'
     
 else:
+    from flask_heroku import Heroku
     app.debug=False
-    app.config['SQLALCHEMY_DATABASE_URI'] = $(heroku config:get DATABASE_URL -a bhver2)
+    heroku = Heroku(app)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
