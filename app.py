@@ -9,7 +9,7 @@ app = Flask(__name__)
 # initialise database
 # note, dictionary not used
 
-ENV = 'deploy'
+ENV = 'deploy' 
 
 if (ENV == 'dev'):
     app.debug=True
