@@ -1,3 +1,5 @@
+# Set ENV='dev' to practice with a local postgres DB
+# set ENV to some other value for Heroku deployment
 from flask import Flask , render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -13,7 +15,7 @@ ENV = 'deploy'
 
 if (ENV == 'dev'):
     app.debug=True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bha..28.@localhost/test2'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/test2'
     
 else:
     from flask_heroku import Heroku
